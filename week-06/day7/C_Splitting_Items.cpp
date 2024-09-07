@@ -18,23 +18,23 @@ using namespace std;
 #define vi             vector<long long>
 const int MOD=1e9+7;
 void solve(){
-    int n,k; cin>>n>>k;
+    ll n,k; cin>>n>>k;
     vi a(n);
     rep(i,0,n-1) cin>>a[i];
     rsort(a)
-    int ans=0;
-    for(int i=0;i<n-1;i+=2){
-        if(a[i]-a[i+1]<=k){
-            ans+=0;
-            k=a[i]-a[i+1];
-        }
-        else {
-            ans+=a[i]-a[i+1]-k;
-            k=0;
-        }
+    ll ans=0;
+    ll val=k;
+    for(ll i=1;i<n;i+=2){
+        ll mn=min(val,a[i-1]-a[i]);
+        a[i]+=mn;
+        val-=mn;
     }
-    if(n&1) ans+=a[n-1];
-    cout<<ans<<endl;
+    ll A=0,B=0;
+    for(int i=0;i<n;i++){
+        if(i&1) B+=a[i];
+        else A+=a[i];
+    }
+    cout<<A-B<<endl;
 }
 int32_t main()
 {
